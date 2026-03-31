@@ -1,0 +1,13 @@
+
+
+//JPA - Java Persistence API is the interface to talk with the different ORMs like
+Hibernate, My Batis, etc.
+Which has the java code to talk to the the database.
+JPA jpa = new Hibernate()  -> general way to call Hibernate, for incase in future there is some
+other ORM we are using , so no difficulty in that.
+
+Now that JPA implementation need to talk to dofferent db drivers like MySqlDriver,
+postgresDriver etc
+So we need JDBC -> interface to help the orm connect to the different db drivers via JDBC interface
+
+// JPA for ORMs and JDBC for DB drivers.

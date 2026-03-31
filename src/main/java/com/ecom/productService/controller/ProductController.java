@@ -1,8 +1,10 @@
 package com.ecom.productService.controller;
 
 
+import com.ecom.productService.Exception.ProductNotFoundException;
 import com.ecom.productService.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +20,7 @@ public class ProductController {
     private final ProductService productService;
 
     @Autowired
-    ProductController(ProductService productService){
+    ProductController(@Qualifier("selfProductService") ProductService productService){
         this.productService = productService;
     }
 
@@ -51,13 +53,13 @@ public class ProductController {
 
     @PatchMapping("/{productId}")
     public ResponseEntity<Product> updateAProduct(@PathVariable("productId") long productId,
-                                  @RequestBody Product product){
+                                  @RequestBody Product product) throws ProductNotFoundException {
         return new ResponseEntity<>(productService.updateAProduct(productId,product),
                 HttpStatus.OK);
     }
 
     @DeleteMapping("/{productId}")
-    public void deleteAProduct(@PathVariable long productId){
+    public void deleteAProduct(@PathVariable long productId) throws ProductNotFoundException {
         productService.deleteAProduct(productId);
     }
 }
