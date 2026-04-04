@@ -9,7 +9,6 @@ public class ProductMapper {
     public static Product convertFakeStoreProductToProduct(FakeStoreProductDto fakeStoreProductDto){
         Product product = new Product();
 
-        product.setProductId(fakeStoreProductDto.getId());
         product.setProductName(fakeStoreProductDto.getTitle());
         product.setPrice(fakeStoreProductDto.getPrice());
         product.setCategory(new Category());
@@ -22,7 +21,6 @@ public class ProductMapper {
     public static FakeStoreProductDto convertProductToFakeStoreProduct(Product product){
         FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
 
-        fakeStoreProductDto.setId(product.getProductId());
         fakeStoreProductDto.setTitle(product.getProductName());
         fakeStoreProductDto.setPrice(product.getPrice());
         fakeStoreProductDto.setCategory(product.getCategory().getCategoryName());
