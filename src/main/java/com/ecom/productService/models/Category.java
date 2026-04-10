@@ -16,4 +16,10 @@ public class Category extends BaseModel{
     @OneToMany(mappedBy = "category")
     private List<Product> products;
     private String categoryName;
+
+    public Category(){}
+
+    public Category(Category category){
+        this.categoryName = category.getCategoryName();
+    }
 }
