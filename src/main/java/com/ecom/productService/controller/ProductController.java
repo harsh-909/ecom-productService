@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.ecom.productService.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -26,8 +27,19 @@ public class ProductController {
 
     @GetMapping("/")
     public ResponseEntity<List<Product>> getAllProducts(){
-        return new ResponseEntity<>(
-                productService.getAllProducts(), HttpStatus.OK);
+
+        List<Product> products = productService.getAllProducts();
+
+        List<Product> finalProducts = new ArrayList<>();
+
+        for( Product product :  products){
+            Product p1 = new Product(product);
+            p1.setProductName("Hello" + p1.getProductName());
+            finalProducts.add(p1);
+
+        }
+        return  new ResponseEntity<>(
+                finalProducts, HttpStatus.OK);
     }
 
     // if exception not thrown here, it will throw it to the controller advices which will

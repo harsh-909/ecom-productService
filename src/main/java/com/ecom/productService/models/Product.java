@@ -17,4 +17,14 @@ public class Product extends BaseModel{
     private Category category;
     private String description;
     private String imageUrl;
+
+    public Product(){}
+
+    public Product(Product product){
+        this.productName = product.getProductName();
+        this.price = product.getPrice();
+        this.description = product.description;
+        this.imageUrl = product.getImageUrl();
+        this.category = new Category(product.getCategory());
+    }
 }
