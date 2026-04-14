@@ -1,14 +1,21 @@
 package com.ecom.productService.controller;
 
 
+import com.ecom.productService.Exception.InvalidTokenException;
 import com.ecom.productService.Exception.ProductNotFoundException;
+import com.ecom.productService.Exception.UserNotFoundException;
+import com.ecom.productService.dto.UserTokenDto;
 import com.ecom.productService.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.ecom.productService.service.ProductService;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +26,12 @@ public class ProductController {
 
 
     private final ProductService productService;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    ProductController(@Qualifier("selfProductService") ProductService productService){
+    ProductController(@Qualifier("selfProductService") ProductService productService, RestTemplate restTemplate){
         this.productService = productService;
+        this.restTemplate = restTemplate;
     }
 
     @GetMapping("/")
@@ -73,5 +82,23 @@ public class ProductController {
     @DeleteMapping("/{productId}")
     public void deleteAProduct(@PathVariable long productId) throws ProductNotFoundException {
         productService.deleteAProduct(productId);
+    }
+
+    @PostMapping("/validateToken")
+    public ResponseEntity<UserTokenDto> validateToken(@RequestHeader("Authorization") String token) throws InvalidTokenException, UserNotFoundException {
+        ResponseEntity<UserTokenDto> responseEntity = restTemplate.postForEntity("http://localhost:8080/users/validateToken"
+                ,new HttpEntity<>(new HttpHeaders(){{
+                    set("Authorization", token);
+                }}),
+                UserTokenDto.class, token);
+
+        if(responseEntity.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+            throw new InvalidTokenException("Invalid Token");
+        }
+        if(responseEntity.getBody() == null) {
+            throw new UserNotFoundException("Invalid User");
+        }
+
+        return responseEntity;
     }
 }

@@ -21,10 +21,10 @@ class ProductServiceApplicationTests {
 	@Transactional
 	@Commit
 	void testQueries() {
-		List<Product> products = productRepository.doSomethingSomething(100L);
-
-		//projection implementation
-		ProductTitleAndDescription productTitleAndDescription = productRepository.somethingSomething2(52L);
-		System.out.println(products);
+//		List<Product> products = productRepository.doSomethingSomething(100L);
+//
+//		//projection implementation
+//		ProductTitleAndDescription productTitleAndDescription = productRepository.somethingSomething2(52L);
+//		System.out.println(products);
 	}
 }

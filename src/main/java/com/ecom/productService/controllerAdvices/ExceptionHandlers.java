@@ -1,7 +1,9 @@
 package com.ecom.productService.controllerAdvices;
 
 
+import com.ecom.productService.Exception.InvalidTokenException;
 import com.ecom.productService.Exception.ProductNotFoundException;
+import com.ecom.productService.Exception.UserNotFoundException;
 import com.ecom.productService.dto.ArithmeticExceptionDto;
 import com.ecom.productService.dto.ExceptionDto;
 import com.ecom.productService.models.Product;
@@ -34,5 +36,25 @@ public class ExceptionHandlers {
         exceptionDto.setMessage(exception.getMessage());
 
         return new ResponseEntity<>(exceptionDto,HttpStatus.OK);
+    }
+
+    @ExceptionHandler(InvalidTokenException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidTokenException(
+            InvalidTokenException exception
+    ) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage(exception.getMessage());
+
+        return new ResponseEntity<>(exceptionDto, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleUserNotFoundException(
+            UserNotFoundException exception
+    ){
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage(exception.getMessage());
+
+        return new ResponseEntity<>(exceptionDto, HttpStatus.NOT_FOUND);
     }
 }
