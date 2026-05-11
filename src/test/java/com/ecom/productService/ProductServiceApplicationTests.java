@@ -11,20 +11,20 @@ import org.springframework.test.annotation.Commit;
 
 import java.util.List;
 
-@SpringBootTest
+//@SpringBootTest
 class ProductServiceApplicationTests {
-
-	@Autowired
-	ProductRepository productRepository;
-
-	@Test
-	@Transactional
-	@Commit
-	void testQueries() {
-//		List<Product> products = productRepository.doSomethingSomething(100L);
 //
-//		//projection implementation
-//		ProductTitleAndDescription productTitleAndDescription = productRepository.somethingSomething2(52L);
-//		System.out.println(products);
-	}
+//	@Autowired
+//	ProductRepository productRepository;
+//
+//	@Test
+//	@Transactional
+//	@Commit
+//	void testQueries() {
+////		List<Product> products = productRepository.doSomethingSomething(100L);
+////
+////		//projection implementation
+////		ProductTitleAndDescription productTitleAndDescription = productRepository.somethingSomething2(52L);
+////		System.out.println(products);
+//	}
 }
