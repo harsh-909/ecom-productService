@@ -19,8 +19,10 @@ public class SecurityConfig{
                 .csrf(crsf -> crsf.disable())
                 .cors(cors-> cors.disable())
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/hello/**").permitAll()
                         .requestMatchers("/products/{id}").authenticated()
                         .requestMatchers("/products/").hasAuthority("ADMIN")
+                        .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()));
         return http.build();
